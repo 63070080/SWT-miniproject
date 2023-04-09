@@ -14,6 +14,7 @@ services:
       - ./data:/data/db
     networks:
       - back
+    container_name: database
 
   mongo-express:
     image: mongo-express:latest
@@ -30,6 +31,7 @@ services:
       - "8081:8081"
     networks:
       - back
+    container_name: database-interface
   server:
     build: ./Server
     image: python-server:lastest
@@ -37,5 +39,6 @@ services:
       - "8085:80"
     networks:
       - back
+    container_name: server
 networks:
   back:
