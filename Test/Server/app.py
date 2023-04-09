@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
-client = MongoClient("mongodb://database:27017/")
+client = MongoClient("mongodb://admin:1234@database:27017/")
 db = client["mydb"]
 collection = db["user"]
 app = FastAPI()
@@ -18,15 +18,8 @@ app.add_middleware(
 )
 @app.get("/")
 async def getusers():
-    items = collection.find({})
-    return jsonify([{"name": item["name"]} for item in items])
+    items = []
+    for item in collection.find():
+        items.append(item)
+    return items
 
-    # name = request.json["name"]
-    # collection.insert_one({"name": name})
-
-    return ""
-
-
-@app.post("/process-image")
-async def process_image():
-    return "dd"
