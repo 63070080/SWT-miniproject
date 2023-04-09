@@ -3,9 +3,10 @@ from pymongo import MongoClient
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from bson.objectid import ObjectId
 
 
-client = MongoClient("mongodb://admin:1234@database:27017/")
+client = MongoClient("mongodb://admin:1234@44.202.128.163:27017/")
 db = client["mydb"]
 collection = db["user"]
 app = FastAPI()
@@ -18,8 +19,10 @@ app.add_middleware(
 )
 @app.get("/")
 async def getusers():
+    
     items = []
-    for item in collection.find():
+    for item in collection.find({}):
+        item['_id'] = str(item['_id'])
         items.append(item)
     return items
 
