@@ -36,3 +36,104 @@
     transform: rotate(360deg);
   }
 }
+/* Set box sizing to border-box for all elements */
+* {
+  box-sizing: border-box;
+}
+
+/* Style for navigation bar */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #f7b731;
+}
+
+/* Style for main content */
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+
+.accounts {
+  margin-top: 50px;
+}
+
+.accounts h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.accounts ul {
+  list-style: none;
+}
+
+.accounts li {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.transactions {
+  margin-top: 50px;
+}
+
+.transactions h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.transactions table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transactions table th,
+.transactions table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.transactions table th {
+  font-weight: bold;
+}
+
+/* Style for footer */
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background-color: #333;
+  color: #fff;
+}
+
+footer p {
+  font-size: 18px;
+  font-weight: bold;
+}
+
