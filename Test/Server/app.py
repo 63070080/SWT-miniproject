@@ -18,8 +18,8 @@ app.add_middleware(
 )
 @app.get("/")
 async def getusers():
-    # items = collection.find({})
-    # return jsonify([{"name": item["name"]} for item in items])
+    items = collection.find({})
+    return jsonify([{"name": item["name"]} for item in items])
 
     # name = request.json["name"]
     # collection.insert_one({"name": name})
