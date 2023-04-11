@@ -1,5 +1,7 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -49,6 +51,10 @@ nav {
   padding: 20px;
   background-color: #333;
   color: #fff;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  justify-content: space-between;
 }
 
 nav ul {
@@ -66,6 +72,12 @@ nav ul li a {
   font-weight: bold;
   transition: all 0.3s ease;
 }
+nav ul li b {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: right;
+}
 
 nav ul li a:hover {
   color: #f7b731;
@@ -77,50 +89,14 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.main2{
+  display: flex;
+  flex-direction: row;
+  align-items:center;
   padding: 50px;
 }
 
-.accounts {
-  margin-top: 50px;
-}
-
-.accounts h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.accounts ul {
-  list-style: none;
-}
-
-.accounts li {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.transactions {
-  margin-top: 50px;
-}
-
-.transactions h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.transactions table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.transactions table th,
-.transactions table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-}
-
-.transactions table th {
-  font-weight: bold;
-}
 
 /* Style for footer */
 footer {
@@ -130,6 +106,10 @@ footer {
   height: 50px;
   background-color: #333;
   color: #fff;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
 }
 
 footer p {
@@ -137,3 +117,43 @@ footer p {
   font-weight: bold;
 }
 
+.pocket {
+  border: 1px solid #ccc;
+  width: 280px;
+  height: 200px;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 0.5rem;
+}
+
+.btn {
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-success {
+  color: #fff;
+  background-color: #4caa5d;
+  border-color: #4caa5d;
+}
