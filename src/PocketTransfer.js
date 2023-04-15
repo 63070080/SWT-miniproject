@@ -130,62 +130,63 @@ function PocketTransfer() {
     }, [selectOp1, user, pockets])
     return (
         <div>
-            {/* Navigation Bar */}
-            <nav>
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/outside-transfer">Transactions</Link></li>
-                    <li><Link to="/pocket-transfer">Manage Pockets Money</Link></li>
-                    <li>Account Money: ${allmoney}</li>
-                </ul>
-                {user?.username || "None"}
-            </nav>
+        {/* Navigation Bar */}
+        <nav>
+            <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/transfer">โอน</Link></li>
+            <li><Link to="/outside-transfer">Transactions</Link></li>
+            <li><Link to="/pocket-transfer">Manage Pockets Money</Link></li>
+            <li>Account Money: ${allmoney}</li>
+            </ul>
+            {user?.username || "None"}
+        </nav>
 
-            {/* Main Content */}
-            <main>
-                <h1>Welcome to Pockets Bank</h1>
-            </main>
-
-
-            <div className="transfercard" style={{ margin: "auto", marginTop: "100px" }}>
-                <div style={{ display: "flex", flex: 1, width: "100%", justifyContent: "space-between" }}>
-
-                    <div style={{ flex: 3, "flex-direction": "column", display: "flex" }}>
-                        <select className="dropdown" value={JSON.stringify(selectOp1)} onChange={handleOp1}>
+        {/* Main Content */}
+        <main>
+            <h1>Welcome to Pockets Bank</h1>
+        </main>
+   
+     
+        <div className="transfercard" style={{margin:"auto", marginTop:"100px"}}>
+            <div style={{display:"flex",flex:1 ,width:"100%", justifyContent:"space-between"}}>
+                
+                <div style={{flex:3,"flex-direction":"column",display:"flex"}}>
+                    <select className="dropdown" value={JSON.stringify(selectOp1)} onChange={handleOp1}>
+                        <option key="Main" value={JSON.stringify("Main")}>Main</option>
+                        <option disabled>────────────────────</option>
+                        {pockets.map((pocket, index)=>(
+                            <option key={pocket._id} value={JSON.stringify(pocket)}>{pocket.name}</option>
+                        )     
+                        )}
+                    </select>
+                    <p style={{fontWeight:"bold"}}>{selectOp1=="Main"?selectOp1:selectOp1?.name}</p>
+                    <p>Current Money: {(selectOp1=="Main"?user?.main_pocket:selectOp1?.cur_money)}</p>
+                    <p>After Transfer: <span style={{color:"red"}}>{(selectOp1=="Main"?user?.main_pocket:selectOp1?.cur_money)-cash}</span></p>
+                </div>
+                <h1 style={{flex:1, textAlign:"center", marginTop:0}}>-></h1>
+                <div style={{flex:3,"flex-direction":"column",display:"flex"}}>
+                    <select className="dropdown" value={JSON.stringify(selectOp2)} onChange={handleOp2}>
+                        {selectOp1 == "Main"?<></>:<>
                             <option key="Main" value={JSON.stringify("Main")}>Main</option>
                             <option disabled>────────────────────</option>
-                            {pockets.map((pocket, index) => (
-                                <option key={pocket._id} value={JSON.stringify(pocket)}>{pocket.name}</option>
-                            )
-                            )}
-                        </select>
-                        <p style={{ fontWeight: "bold" }}>{selectOp1 == "Main" ? selectOp1 : selectOp1?.name}</p>
-                        <p>Current Cash: {(selectOp1 == "Main" ? user?.main_pocket : selectOp1?.cur_money)}</p>
-                        <p>After Transfer: <span style={{ color: "red" }}>{(selectOp1 == "Main" ? user?.main_pocket : selectOp1?.cur_money) - cash}</span></p>
-                    </div>
-                    <h1 style={{ flex: 1, textAlign: "center", marginTop: 0 }}>-></h1>
-                    <div style={{ flex: 3, "flex-direction": "column", display: "flex" }}>
-                        <select className="dropdown" value={JSON.stringify(selectOp2)} onChange={handleOp2}>
-                            {selectOp1 == "Main" ? <></> : <>
-                                <option key="Main" value={JSON.stringify("Main")}>Main</option>
-                                <option disabled>────────────────────</option>
-                            </>}
-                            {pockets2.map((pocket, index) => (
-                                <option key={pocket._id} value={JSON.stringify(pocket)}>{pocket.name}</option>
-                            )
-                            )}
-                        </select>
-                        <p style={{ fontWeight: "bold" }}>{selectOp2 == "Main" ? selectOp2 : selectOp2?.name}</p>
-                        <p>Current Cash: {(selectOp2 == "Main" ? user?.main_pocket : selectOp2?.cur_money)}</p>
-                        <p>After Transfer: <span style={{ color: "green" }}>{(selectOp2 == "Main" ? user?.main_pocket : selectOp2?.cur_money) + cash}</span></p>
-                    </div>
-
+                        </>}
+                        {pockets2.map((pocket, index)=>(
+                            <option key={pocket._id} value={JSON.stringify(pocket)}>{pocket.name}</option>
+                        )     
+                        )}
+                    </select>
+                    <p style={{fontWeight:"bold"}}>{selectOp2=="Main"?selectOp2:selectOp2?.name}</p>
+                    <p>Current Money: {(selectOp2=="Main"?user?.main_pocket:selectOp2?.cur_money)}</p>
+                    <p>After Transfer: <span style={{color:"green"}}>{(selectOp2=="Main"?user?.main_pocket:selectOp2?.cur_money)+cash}</span></p>
                 </div>
-                <div style={{ width: "100%", flex: 1, display: "flex", justifyContent: "center", paddingTop: "5%" }}>
-                    <input type="number" min={1} style={{ height: "100%", flex: 1 }} value={cash} onChange={handleCash}></input>
-                    <button style={{ height: "100%", flex: .8, marginLeft: "5%", marginRight: "5%" }} onClick={transfer}>Confirm</button>
-                    <button style={{ height: "100%", flex: .5 }} onClick={() => { setCash(0) }}>Clear</button>
-                </div>
+                
+            </div>
+            <div style={{width:"100%",flex:1 ,display:"flex",justifyContent:"center", paddingTop:"10%"}}>
+                <input type="number" min={1} style={{height:"30%", flex:1}} value={cash} onChange={handleCash}></input>
+                <button style={{height:"30%", flex:.8, marginLeft:"5%", marginRight:"5%"}} onClick={transfer}>Confirm</button>
+                <button style={{height:"30%", flex:.5}} onClick={()=>{setCash(0)}}>Clear</button>
+            </div>
 
 
             </div>

@@ -178,3 +178,30 @@ async def withdraw(id:str, money: float, pocketid:str = None):
             result = await get_user(id)
             return result
         return False
+    
+@app.put("/transfer/{id}/{money}")
+async def transfer(id:str, money: float, pocketid:str = None, target:str = "9876543210"):
+    
+    user = await get_user(id)
+    if pocketid != None:
+        pocket = next((p for p in user["pockets"] if p["_id"] == pocketid), None)
+        if money <= pocket["cur_money"]:
+            mmoney = pocket["cur_money"] - money
+            for tran in user["transaction"]:
+                tran["_id"] = ObjectId(tran["_id"])
+            user["transaction"].append({"_id":ObjectId(),"sender":user["username"],"bank_number":user["bank_number"],"frompocket":pocket["name"],"target":target,"money":money,"type":"TRANSFER","date":datetime.now()})
+            collection.update_one({ "_id": ObjectId(id), "pockets._id": ObjectId(pocketid) },{"$set": {"pockets.$.cur_money": mmoney, "transaction":user["transaction"]}})
+            result = await get_user(id)
+            return result
+        return False
+
+    else:
+        if money <= user["main_pocket"]:
+            mmoney = user["main_pocket"] - money
+            for tran in user["transaction"]:
+                tran["_id"] = ObjectId(tran["_id"])
+            user["transaction"].append({"_id":ObjectId(),"sender":user["username"],"bank_number":user["bank_number"],"frompocket":"Main","target":target,"money":money,"type":"TRANSFER","date":datetime.now()})
+            collection.update_one({ "_id": ObjectId(id)},{"$set": {"main_pocket":mmoney, "transaction":user["transaction"]}})
+            result = await get_user(id)
+            return result
+        return False

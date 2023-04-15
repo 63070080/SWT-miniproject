@@ -7,8 +7,8 @@ import { Provider } from 'react-redux'
 import store from "./store"
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import PocketTransfer from './PocketTransfer';
+import Transfer from './Transfer';
 import OutsideTransfer from './OutsideTransfer';
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -18,6 +18,7 @@ root.render(
           <Route path='/' Component={App}></Route>
           <Route path='/outside-transfer' Component={OutsideTransfer}></Route>
           <Route path='/pocket-transfer' Component={PocketTransfer}></Route>
+          <Route path='/transfer' Component={Transfer}></Route>
         </Routes>
       </BrowserRouter>
       
