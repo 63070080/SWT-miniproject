@@ -3,17 +3,21 @@ import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import {setuser} from './data/userSlice'
-
+import { Link } from 'react-router-dom';
 function App() {
   const user = useSelector((state)=>state.user.user)
   const dispatch = useDispatch()
   const [pockets, setPockets] = useState([]);
-
+  const [allmoney, setAllMoney] = useState(0)
+  const [nameAdd, setNameAdd] = useState("")
+  const handleAddNameChange = (event)=>{
+    setNameAdd(event.target.value)
+  }
   const handleAddPocket = async() => {
     // const newPocket = { _id: Date.now(), name: 'New Pocket', cur_money: 0 };
     // setPockets([...pockets, newPocket]);
     const send = {
-      name: "New Pocket",
+      name: nameAdd.trim().length == 0?"New Pocket":nameAdd,
       max_money: 100000000
     }
     const response = await fetch('http://localhost/pockets/'+user._id, {
@@ -62,10 +66,10 @@ function App() {
   };
   //Generate user if  not have yet  (user:admin, pass:1234)
   useEffect(()=>{
-    console.log(sessionStorage.getItem('userId'))
+    console.log(localStorage.getItem('userId'))
     async function genUser(){
-      if(sessionStorage.getItem('userId')){
-        const response2 = await fetch('http://localhost/users/'+sessionStorage.getItem('userId'));
+      if(localStorage.getItem('userId')){
+        const response2 = await fetch('http://localhost/users/'+localStorage.getItem('userId'));
         const result = await response2.json();
         dispatch(setuser(result))
         setPockets(result.pockets)
@@ -85,7 +89,7 @@ function App() {
           console.log(json)
           const response2 = await fetch('http://localhost/users/'+json.id);
           const result = await response2.json();
-          sessionStorage.setItem('userId', json.id);
+          localStorage.setItem('userId', json.id);
           dispatch(setuser(result))
           setPockets(result.pockets)
           console.log(result)
@@ -94,18 +98,23 @@ function App() {
         }
       }
     }
-    genUser()
+      genUser()
   },[])
+  //calculate all money
+  useEffect(()=>{
+    const total = pockets.reduce((acc, value)=>{return acc+value.cur_money},user?user.main_pocket:0)
+    setAllMoney(total.toFixed(2))
+  },[user,pockets])
   return (
     <div>
       {/* Navigation Bar */}
       <nav>
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><Link to="/pocket-transfer">Home</Link></li>
           <li><a href="#">Accounts</a></li>
           <li><a href="#">Transactions</a></li>
           <li><a href="#">Manage Pockets Money</a></li>
-          <li><a href="#">Account Money: $1,000.00</a></li>
+          <li><a href="#">Account Money: ${allmoney}</a></li>
         </ul>
         {user?.username || "None"}
       </nav>
@@ -119,6 +128,7 @@ function App() {
       <div className='main2' style={{paddingBottom:"0px"}}><h1>Main Money: {user?.main_pocket}</h1></div>
       <div className='main2'>
         <h1>Pockets</h1>
+        <input type='text' value={nameAdd} onChange={handleAddNameChange}></input>
         <button className="btn btn-success" onClick={handleAddPocket}>Add Pocket</button>
       </div>
       <div style={{display:"flex", flexFlow:"wrap", paddingBottom:"100px", paddingLeft:"50px"}}>

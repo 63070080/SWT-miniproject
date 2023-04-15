@@ -5,12 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
 import store from "./store"
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import PocketTransfer from './PocketTransfer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' Component={App}></Route>
+          <Route path='/pocket-transfer' Component={PocketTransfer}></Route>
+        </Routes>
+      </BrowserRouter>
+      
     </Provider>
   </React.StrictMode>
 );
