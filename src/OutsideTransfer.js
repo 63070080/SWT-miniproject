@@ -3,7 +3,7 @@ import "./App.css"
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setuser } from './data/userSlice'
-function PocketTransfer() {
+function OutsideTransfer() {
     const user = useSelector((state) => state.user.user)
     const dispatch = useDispatch()
     const [pockets, setPockets] = useState([]);
@@ -200,4 +200,4 @@ function PocketTransfer() {
     )
 }
 
-export default PocketTransfer
+export default OutsideTransfer

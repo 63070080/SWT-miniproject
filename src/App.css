@@ -94,7 +94,13 @@ main {
   display: flex;
   flex-direction: row;
   align-items:center;
-  padding: 50px;
+  padding-left: 50px;
+}
+.main3{
+  display:grid;
+  flex-direction: row;
+  align-items:center;
+  padding-left: 50px;
 }
 
 
