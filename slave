@@ -44,12 +44,7 @@ pipeline{
                     -e ME_CONFIG_MONGODB_ENABLE_ADMIN=true  tanapongp/mongo-express:latest'
             }
         }
-        stage("db setup"){
-            steps{
-                echo "create db user"
-                sh 'docker exec database mongosh -eval "use admin; db.createUser({user: \'admin\', pwd: \'1234\', roles: [ { role: \'userAdminAnyDatabase\', db: \'admin\' } ]}); exit;"'
-            }
-        }
+
     }
 }
 
