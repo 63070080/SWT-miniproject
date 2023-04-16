@@ -111,8 +111,7 @@ function App() {
       <nav>
         <ul>
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/transfer">โอน</Link></li>
-          <li><Link to="/outside-transfer">Transactions</Link></li>
+          <li><Link to="/transfer">Transfer</Link></li>
           <li><Link to="/pocket-transfer">Manage Pockets Money</Link></li>
           <li>Account Money: ${allmoney}</li>
         </ul>

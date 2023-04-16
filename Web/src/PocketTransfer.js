@@ -134,8 +134,7 @@ function PocketTransfer() {
         <nav>
             <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/transfer">โอน</Link></li>
-            <li><Link to="/outside-transfer">Transactions</Link></li>
+            <li><Link to="/transfer">Transfer</Link></li>
             <li><Link to="/pocket-transfer">Manage Pockets Money</Link></li>
             <li>Account Money: ${allmoney}</li>
             </ul>
@@ -183,9 +182,9 @@ function PocketTransfer() {
                 
             </div>
             <div style={{width:"100%",flex:1 ,display:"flex",justifyContent:"center", paddingTop:"10%"}}>
-                <input type="number" min={1} style={{height:"30%", flex:1}} value={cash} onChange={handleCash}></input>
-                <button style={{height:"30%", flex:.8, marginLeft:"5%", marginRight:"5%"}} onClick={transfer}>Confirm</button>
-                <button style={{height:"30%", flex:.5}} onClick={()=>{setCash(0)}}>Clear</button>
+                <input type="number" min={1} style={{height:"100%", flex:1}} value={cash} onChange={handleCash}></input>
+                <button style={{height:"100%", flex:.8, marginLeft:"5%", marginRight:"5%"}} onClick={transfer}>Confirm</button>
+                <button style={{height:"100%", flex:.5}} onClick={()=>{setCash(0)}}>Clear</button>
             </div>
 
 
