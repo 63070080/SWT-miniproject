@@ -6,8 +6,8 @@ pipeline{
                 sh 'docker stop $(docker ps -aq) || true'
                 sh 'docker rm $(docker ps -aq) || true'
                 sh 'docker rmi $(docker images -q) || true'
-                sh 'docker network rm front || true'
-                sh 'docker network rm back || true'
+                sh 'docker network rm swt-miniproject_front || true'
+                sh 'docker network rm swt-miniproject_back || true'
             }
         }
         stage("pull"){
