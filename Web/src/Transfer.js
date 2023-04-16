@@ -28,7 +28,7 @@ function Transfer(){
     console.log(localStorage.getItem('userId'))
     async function genUser(){
       if(localStorage.getItem('userId')){
-        const response2 = await fetch('http://server:8085/users/'+localStorage.getItem('userId'));
+        const response2 = await fetch('http://server/users/'+localStorage.getItem('userId'));
         const result = await response2.json();
         dispatch(setuser(result))
         setPockets(result.pockets)
@@ -39,14 +39,14 @@ function Transfer(){
             username: "admin",
             password: '1234'
           }
-          const response = await fetch('http://server:8085/create_user', {
+          const response = await fetch('http://server/create_user', {
             method: "POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(send)
           });
           const json = await response.json();
           console.log(json)
-          const response2 = await fetch('http://server:8085/users/'+json.id);
+          const response2 = await fetch('http://server/users/'+json.id);
           const result = await response2.json();
           localStorage.setItem('userId', json.id);
           dispatch(setuser(result))
@@ -61,7 +61,7 @@ function Transfer(){
   },[])
     const transfer = async() => {
         if(selectOp1 == "Main"){
-            const response = await fetch('http://server:8085/transfer/'+user._id+"/"+cash+"?target="+target, {
+            const response = await fetch('http://server/transfer/'+user._id+"/"+cash+"?target="+target, {
               method: "PUT"
             });
             const result = await response.json();
@@ -69,7 +69,7 @@ function Transfer(){
             dispatch(setuser(result))
             setPockets(result.pockets)
         }else{
-            const response = await fetch('http://server:8085/transfer/'+user._id+"/"+cash+"?target="+target+"&pocketid="+selectOp1._id, {
+            const response = await fetch('http://server/transfer/'+user._id+"/"+cash+"?target="+target+"&pocketid="+selectOp1._id, {
               method: "PUT"
             });
             const result = await response.json();
