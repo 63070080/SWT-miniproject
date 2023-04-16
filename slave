@@ -8,6 +8,8 @@ pipeline{
                 sh 'docker rmi $(docker images -q) || true'
                 sh 'docker network rm swt-miniproject_front || true'
                 sh 'docker network rm swt-miniproject_back || true'
+                sh 'docker network rm front || true'
+                sh 'docker network rm back || true'
             }
         }
         stage("pull"){
