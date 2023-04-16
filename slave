@@ -47,7 +47,7 @@ pipeline{
         stage("db setup"){
             steps{
                 echo "create db user"
-                sh "docker exec database mongosh -eval 'use admin; db.createUser({user: "admin", pwd: "1234", roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]}); exit;'"
+                sh 'docker exec mongodb mongosh -eval "use admin; db.createUser({user: \'admin\', pwd: \'1234\', roles: [ { role: \'userAdminAnyDatabase\', db: \'admin\' } ]}); exit;"'
             }
         }
     }
