@@ -49,7 +49,7 @@ pipeline{
                 echo "create db user"
                 sh '''
 
-                    docker exec -it -t database mongosh
+                    docker exec database mongosh
 
 
                     use admin
