@@ -42,7 +42,7 @@ services:
     networks:
       - front
       - back
-    container_name: localhost
+    container_name: server
   website:
     build: ./Web
     image: tanapongp/website:lastest
