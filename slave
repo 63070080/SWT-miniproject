@@ -30,6 +30,8 @@ pipeline{
                 echo "running image"
                 sh 'docker network create front'
                 sh 'docker network create back'
+                sh 'docker network create swt-miniproject_front'
+                sh 'docker network create swt-miniproject_back'
                 sh 'docker run -d --network swt-miniproject_front -p 3000:3000 --name website tanapongp/website:lastest'
                 sh 'docker run -d --network swt-miniproject_back -p 8085:80 --name server tanapongp/python-server:lastest'
                 sh 'docker run -d --network swt-miniproject_back -p 27017:27017 -v /data:/data/db --name database -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=1234 -e MONGO_INITDB_DATABASE=mydb tanapongp/mongo:latest'
