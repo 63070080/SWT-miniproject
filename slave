@@ -30,8 +30,14 @@ pipeline{
                 sh 'docker network create back'
                 sh 'docker run -d --network front -p 3000:3000 --name website tanapongp/website:lastest'
                 sh 'docker run -d --network back -p 8085:80 --name server tanapongp/python-server:lastest'
-                sh 'docker run -d --network back -p 27017:27017 -v /data:/data/db --name database tanapongp/mongo:latest'
-                sh 'docker run -d --network back -p 8081:8081 --name database-interface tanapongp/mongo-express:latest'
+                sh 'docker run -d --network back -p 27017:27017 -v /data:/data/db --name database -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=1234 -e MONGO_INITDB_DATABASE=mydb tanapongp/mongo:latest'
+                sh 'docker run -d --network back -p 8081:8081 --name database-interface -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin \
+                    -e ME_CONFIG_MONGODB_ADMINPASSWORD=1234 \
+                    -e ME_CONFIG_BASICAUTH_USERNAME=admin \
+                    -e ME_CONFIG_BASICAUTH_PASSWORD=1234 \
+                    -e ME_CONFIG_MONGODB_SERVER=mongo \
+                    -e ME_CONFIG_MONGODB_PORT=27017 \
+                    -e ME_CONFIG_MONGODB_ENABLE_ADMIN=true tanapongp/mongo-express:latest'
             }
         }
     }
