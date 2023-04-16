@@ -24,10 +24,10 @@ pipeline{
         stage("work"){
             steps{
                 echo "running image"
-                sh 'docker run -d  tanapongp/website:lastest'
-                sh 'docker run -d  tanapongp/python-server:lastest'
-                sh 'docker run -d  tanapongp/mongo:latest'
-                sh 'docker run -d  tanapongp/mongo-express:latest'
+                sh 'docker run -d -p 3000:3000 --name website tanapongp/website:lastest'
+                sh 'docker run -d -p 8085:80 --name server tanapongp/python-server:lastest'
+                sh 'docker run -d -p 27017:27017 -v /data:/data/db --name database tanapongp/mongo:latest'
+                sh 'docker run -d  -p 8081:8081 --name database-interface tanapongp/mongo-express:latest'
             }
         }
     }
