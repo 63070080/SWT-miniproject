@@ -1,0 +1,35 @@
+pipeline{
+    agent any
+    stages{
+        stage("init"){
+            steps{
+                sh 'docker stop $(docker ps -aq) || true'
+                sh 'docker rm $(docker ps -aq) || true'
+                sh 'docker rmi $(docker images -q) || true'
+            }
+        }
+        stage("pull"){
+            steps{
+                 withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PWD', usernameVariable: 'DOCKER_USER')]) {
+                    echo "pulling new image"
+                    sh 'docker login -u ${DOCKER_USER} -p ${DOCKER_PWD}'
+                    sh 'docker pull tanapongp/website:lastest'
+                    sh 'docker pull tanapongp/python-server:lastest'
+                    sh 'docker pull tanapongp/mongo:latest'
+                    sh 'docker pull tanapongp/mongo-express:latest'
+                }
+               
+            }
+        }
+        stage("work"){
+            steps{
+                echo "running image"
+                sh 'docker run -d  tanapongp/website:lastest'
+                sh 'docker run -d  tanapongp/python-server:lastest'
+                sh 'docker run -d  tanapongp/mongo:latest'
+                sh 'docker run -d  tanapongp/mongo-express:latest'
+            }
+        }
+    }
+}
+

@@ -1,0 +1,31 @@
+pipeline{
+    agent any
+    stages{
+        stage("init"){
+            steps{
+                echo "Clean container"
+                sh 'docker-compose down --rmi all --volumes || true'
+            }
+        }
+        stage("build"){
+            steps{
+                echo "Building with compose"
+                sh 'docker-compose build'
+            }
+        }
+        stage("push"){
+            steps{
+                withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER_PWD', usernameVariable: 'DOCKER_USER')]) {
+                    echo "Pushing image to docker ${DOCKER_USER} ${DOCKER_PWD}"
+                    sh 'docker login -u ${DOCKER_USER} -p ${DOCKER_PWD}'
+                    sh 'docker-compose push'
+                }
+            }
+        }
+        stage("wake slave"){
+            steps{
+                build job: 'slave'
+            }
+        }
+    }
+}
