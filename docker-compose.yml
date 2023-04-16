@@ -40,7 +40,17 @@ services:
     ports:
       - "8085:80"
     networks:
+      - front
       - back
-    container_name: server
+    container_name: localhost
+  website:
+    build: ./Web
+    image: tanapongp/website:lastest
+    ports:
+      - "3000:3000"
+    networks:
+      - front
+    container_name: website
 networks:
   back:
+  front:
