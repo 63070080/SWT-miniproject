@@ -24,9 +24,9 @@ class User(BaseModel):
 
 
 #on ec2
-# client = MongoClient("mongodb://admin:1234@database:27017/")
+client = MongoClient("mongodb://admin:1234@database:27017/")
 #on local
-client = MongoClient("mongodb://localhost:27017/")
+# client = MongoClient("mongodb://localhost:27017/")
 db = client["mydb"]
 collection = db["user"]
 app = FastAPI()
