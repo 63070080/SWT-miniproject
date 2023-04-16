@@ -24,7 +24,7 @@ class User(BaseModel):
 
 
 #on ec2
-client = MongoClient("mongodb://admin:1234@18.208.223.38:27017/mydb?authSource=admin")
+client = MongoClient("mongodb://18.208.223.38:27017/")
 #on local
 # client = MongoClient("mongodb://localhost:27017/")
 db = client["mydb"]
