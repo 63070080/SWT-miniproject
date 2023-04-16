@@ -40,8 +40,10 @@ services:
     ports:
       - "8085:8085"
     networks:
-      - front
-      - back
+      front:
+        aliases:
+          - server
+      back:
     container_name: server
   website:
     build: ./Web
