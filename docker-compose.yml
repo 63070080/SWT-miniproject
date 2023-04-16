@@ -38,7 +38,7 @@ services:
     build: ./Server
     image: tanapongp/python-server:lastest
     ports:
-      - "8085:8085"
+      - "8085:80"
     networks:
       - front
       - back
