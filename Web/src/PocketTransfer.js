@@ -29,7 +29,7 @@ function PocketTransfer() {
                 pocket1: selectOp2._id,
                 money: cash
             }
-            const response = await fetch('http://52.23.159.62:8085/m2p/' + user._id, {
+            const response = await fetch('http://54.211.34.18:8085/m2p/' + user._id, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(send)
@@ -44,7 +44,7 @@ function PocketTransfer() {
                 pocket1: selectOp1._id,
                 money: cash
             }
-            const response = await fetch('http://52.23.159.62:8085/p2m/' + user._id, {
+            const response = await fetch('http://54.211.34.18:8085/p2m/' + user._id, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(send)
@@ -61,7 +61,7 @@ function PocketTransfer() {
                 money: cash,
                 pocket2: selectOp2._id
             }
-            const response = await fetch('http://52.23.159.62:8085/p2p/' + user._id, {
+            const response = await fetch('http://54.211.34.18:8085/p2p/' + user._id, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(send)
@@ -85,7 +85,7 @@ function PocketTransfer() {
         console.log(localStorage.getItem('userId'))
         async function genUser() {
             if (localStorage.getItem('userId')) {
-                const response2 = await fetch('http://52.23.159.62:8085/users/' + localStorage.getItem('userId'));
+                const response2 = await fetch('http://54.211.34.18:8085/users/' + localStorage.getItem('userId'));
                 const result = await response2.json();
                 dispatch(setuser(result))
                 setPockets(result.pockets)
@@ -97,14 +97,14 @@ function PocketTransfer() {
                         username: "admin",
                         password: '1234'
                     }
-                    const response = await fetch('http://52.23.159.62:8085/create_user', {
+                    const response = await fetch('http://54.211.34.18:8085/create_user', {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(send)
                     });
                     const json = await response.json();
                     console.log(json)
-                    const response2 = await fetch('http://52.23.159.62:8085/users/' + json.id);
+                    const response2 = await fetch('http://54.211.34.18:8085/users/' + json.id);
                     const result = await response2.json();
                     localStorage.setItem('userId', json.id);
                     dispatch(setuser(result))
