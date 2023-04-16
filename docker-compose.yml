@@ -2,7 +2,8 @@ version: '3'
 
 services:
   mongo:
-    image: mongo:latest
+    build: ./Mongo
+    image: tanapongp/mongo:latest
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
@@ -17,7 +18,8 @@ services:
     container_name: database
 
   mongo-express:
-    image: mongo-express:latest
+    build: ./MongoExpress
+    image: tanapongp/mongo-express:latest
     restart: always
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: admin
@@ -34,7 +36,7 @@ services:
     container_name: database-interface
   server:
     build: ./Server
-    image: python-server:lastest
+    image: tanapongp/python-server:lastest
     ports:
       - "8085:80"
     networks:
