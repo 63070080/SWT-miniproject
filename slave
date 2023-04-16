@@ -6,6 +6,8 @@ pipeline{
                 sh 'docker stop $(docker ps -aq) || true'
                 sh 'docker rm $(docker ps -aq) || true'
                 sh 'docker rmi $(docker images -q) || true'
+                sh 'docker network rm front || true'
+                sh 'docker network rm back || true'
             }
         }
         stage("pull"){
@@ -24,10 +26,12 @@ pipeline{
         stage("work"){
             steps{
                 echo "running image"
-                sh 'docker run -d -p 3000:3000 --name website tanapongp/website:lastest'
-                sh 'docker run -d -p 8085:80 --name server tanapongp/python-server:lastest'
-                sh 'docker run -d -p 27017:27017 -v /data:/data/db --name database tanapongp/mongo:latest'
-                sh 'docker run -d  -p 8081:8081 --name database-interface tanapongp/mongo-express:latest'
+                sh 'docker network create front'
+                sh 'docker network create back'
+                sh 'docker run -d --network front -p 3000:3000 --name website tanapongp/website:lastest'
+                sh 'docker run -d --network front --network back -p 8085:80 --name server tanapongp/python-server:lastest'
+                sh 'docker run -d --network back -p 27017:27017 -v /data:/data/db --name database tanapongp/mongo:latest'
+                sh 'docker run -d --network back -p 8081:8081 --name database-interface tanapongp/mongo-express:latest'
             }
         }
     }
